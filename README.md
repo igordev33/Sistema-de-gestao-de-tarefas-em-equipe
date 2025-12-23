@@ -1,35 +1,60 @@
-Este projeto é uma API RESTful desenvolvida com FastAPI, Python e SQLAlchemy, criada para treinar conceitos fundamentais de backend, autenticação e manipulação de banco de dados.
+# ![API](https://img.shields.io/badge/API-FastAPI-blue) API de Tarefas
 
-A API permite cadastrar, visualizar, concluir e deletar tarefas armazenadas em um banco SQLite.
+Uma **API RESTful** desenvolvida com **FastAPI**, **Python** e **SQLAlchemy** para gerenciar tarefas.  
+Permite **cadastrar, listar, concluir e excluir tarefas** em um banco SQLite.  
 
-A API oferece recursos completos para gerenciamento de tarefas:
+O projeto utiliza **Docker** para garantir que a aplicação rode de forma consistente em qualquer ambiente.
 
--Cadastrar uma nova tarefa
-    Evita cadastros duplicados
-    Validações básicas com Pydantic
+---
 
--Listar tarefas com paginação
-    Suporte a page e limit
-    Permite ordenar resultados por id ou nome
-    Retorna também o total de tarefas cadastradas
+## 🐳 Rodando a aplicação com Docker
 
--Excluir uma tarefa
-    Exclusão pelo nome da tarefa
-    Verificação de existência antes de remover
+### Pré-requisitos
 
--Concluir tarefa
-    Atualiza o campo concluida para true
-    Apenas se a tarefa existir
+- [Docker](https://docs.docker.com/get-docker/)  
+- [Docker Compose](https://docs.docker.com/compose/install/)  
 
--Autenticação via HTTP Basic
-    Todas as rotas são protegidas
-    Credenciais configuradas no próprio código (admin / admin)
+### Passos
 
-Tecnologias Utilizadas:
--Python 3
--FastAPI
--SqlAlchemy
--Pydantic
--SQLite
--HTTP Basic Auth
--Uvicorn
+1. Crie um arquivo `.env` na raiz do projeto com o seguinte conteúdo:
+
+```env
+DATABASE_URL = sqlite:///./Tarefas.db
+meu_usuario = admin
+minha_senha = admin
+
+2. Build do container:
+
+docker compose build
+
+3. Rodar a aplicação:
+
+docker compose up
+
+## 📝 Funcionalidades
+
+### Cadastrar uma nova tarefa
+- Evita cadastros duplicados
+- Validações básicas com Pydantic
+
+### Listar tarefas com paginação
+- Suporte a page e limit
+- Permite ordenar resultados por id ou nome
+- Retorna também o total de tarefas cadastradas
+
+### Excluir uma tarefa
+- Exclusão pelo nome da tarefa
+- Verificação de existência antes de remover
+
+### Concluir tarefa
+- Atualiza o campo concluida para true
+- Apenas se a tarefa existir
+
+### Autenticação via HTTP Basic
+- Todas as rotas são protegidas
+- Credenciais padrão: admin / admin
+
+
+
+
+

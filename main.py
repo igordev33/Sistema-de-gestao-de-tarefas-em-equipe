@@ -6,8 +6,18 @@ from typing import Optional
 from sqlalchemy import Boolean, create_engine, Column, Integer, String, func
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+import os
+from dotenv import load_dotenv
 
-DATABASE_URL = "sqlite:///./Tarefas.db"
+load_dotenv()
+
+def require_env(name: str) -> str:
+    value = os.getenv(name)
+    if not value:
+        raise RuntimeError(f"Variável de ambiente {name} não definida")
+    return value
+
+DATABASE_URL = require_env("DATABASE_URL")
 
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 SessionLocal = sessionmaker(autocommit = False, autoflush=False, bind=engine)
@@ -25,8 +35,8 @@ app = FastAPI(
 
 security = HTTPBasic()
 
-meu_usuario = "admin"
-minha_senha = "admin"
+meu_usuario = require_env("meu_usuario")
+minha_senha = require_env("minha_senha")
 
 class TarefaDB(Base):
     __tablename__ = "Tarefas"
@@ -36,7 +46,6 @@ class TarefaDB(Base):
     concluida = Column(Boolean)
 
 class Tarefa(BaseModel):
-    id: Optional[int] = None
     nome: str
     descricao: str
     concluida: Optional[bool] = False
