@@ -1,0 +1,104 @@
+.background_container {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(6px);
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 50px;
+
+    z-index: 9999;
+}
+
+.form_container {
+    background-color: white;
+
+    padding: 0px 15px 15px 15px;
+    border-radius: 10px;
+    min-width: 300px;
+}
+
+.close_form_button_container {
+    width: 100%;
+    border-bottom: 1px solid gray;
+    padding: 3px 5px 3px 5px;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+}
+
+.close_form_button {
+    color: black;
+    border: none;
+    background-color: white;
+    font-size: 1.1rem;
+}
+
+.close_form_button:hover {
+    color: red;
+    border: none;
+    background-color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.form_container__title_label {
+    color: black;
+    font-size: 1.2rem;
+}
+
+.form_container__title_input {
+    width: 250px;
+    color: black;
+    padding: 2px;
+    margin-bottom: 10px;
+}
+
+.form_container__description_label {
+    font-size: 1.2rem;
+    color: black;
+}
+
+.form_container__description_input {
+    width: 100%;
+    color: black;
+    padding: 3px;
+}
+
+.label_and_select_container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-block: 10px;
+}
+
+.form_container__select_label {
+    color: black;
+}
+
+.form_container__select {
+    color: black;
+    width: 130px;
+    text-align: center;
+}
+
+.form_container__button {
+    margin: auto;
+    width: 100%;
+    margin-top: 30px;
+    padding: 5px;
+    border: none;
+    background-color: #1a61be;
+    color: white;
+    font-weight: 800;
+    cursor: pointer;
+    border-radius: 3px;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.241);
+}
+
+.form_container__button:hover{
+    background-color: #1755a7;
+}
+

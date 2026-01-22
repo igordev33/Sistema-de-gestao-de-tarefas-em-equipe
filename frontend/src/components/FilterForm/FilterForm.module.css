@@ -1,0 +1,90 @@
+.background_div {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(6px);
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 50px;
+
+    z-index: 9999;
+}
+
+.form_container {
+    background-color: white;
+    padding: 2px 15px 15px 15px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.636);
+    min-width: 300px;
+    overflow-y: auto;
+}
+
+.close_form_button_container {
+    width: 100%;
+    border-bottom: 1px solid gray;
+    padding: 3px 5px 3px 5px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.close_form_button {
+    color: black;
+    border: none;
+    background-color: white;
+    font-size: 1.1rem;
+}
+
+.close_form_button:hover {
+    color: red;
+    border: none;
+    background-color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.form_container_title {
+    color: black;
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
+
+.label_and_select_container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.form_container_label {
+    color: black;
+    font-size: 1.1rem;
+}
+
+.form_container_select {
+    color: black;
+    width: 130px;
+    margin-left: auto;
+    font-size: 1.1rem;
+    padding-inline: 5px;
+    cursor: pointer;
+}
+
+.form_container_button {
+    margin: auto;
+    width: 100%;
+    margin-top: 30px;
+    padding: 5px;
+    border: none;
+    background-color: #1a61be;
+    color: white;
+    font-weight: 800;
+    cursor: pointer;
+    border-radius: 3px;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.241);
+}
+
+.form_container_button:hover{
+    background-color: #1755a7;
+}
