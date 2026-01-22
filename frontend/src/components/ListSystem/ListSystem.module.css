@@ -1,0 +1,40 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+}
+
+.main__button_container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 600px;
+    width: 100%;
+    border-bottom: 1px solid gray;
+    padding-bottom: 15px;
+}
+
+.main__add_button {
+    width: 47%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    font-weight: 800;
+    font-size: 1.2rem;
+    background-color: #1357af;
+    cursor: pointer;
+}
+
+.main__filter_button {
+    width: 47%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    font-weight: 800;
+    font-size: 1.2rem;
+    background-color: #2a2d38cc;
+    cursor: pointer;
+}
