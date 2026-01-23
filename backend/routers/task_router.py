@@ -1,5 +1,6 @@
 from math import ceil
 from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.security import HTTPBasicCredentials
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 
@@ -7,11 +8,12 @@ import models
 import schemas
 
 from configs.session import get_db
+from configs.security import autenticar_usuario
 
 task_router = APIRouter(prefix="/tasks", tags=["Tasks"])
 
 @task_router.get("/")
-def get_tasks(db:Session = Depends(get_db), page:int = 1, limit:int=12):
+def get_tasks(db:Session = Depends(get_db), page:int = 1, limit:int=12, credentials: HTTPBasicCredentials = Depends(autenticar_usuario)):
 
     query = db.query(models.Task).order_by(models.Task.task_id.desc())
 
@@ -42,7 +44,7 @@ def get_tasks(db:Session = Depends(get_db), page:int = 1, limit:int=12):
         
 
 @task_router.post("/", status_code=status.HTTP_201_CREATED)
-def create_task(task:schemas.Create_task, db:Session = Depends(get_db)):
+def create_task(task:schemas.Create_task, db:Session = Depends(get_db), credentials: HTTPBasicCredentials = Depends(autenticar_usuario)):
 
     new_task = models.Task(
         task_title = task.task_title, 
@@ -62,7 +64,7 @@ def create_task(task:schemas.Create_task, db:Session = Depends(get_db)):
     }
 
 @task_router.patch("/{task_id}")
-def complete_task(task_id:int, db: Session = Depends(get_db)):
+def complete_task(task_id:int, db: Session = Depends(get_db), credentials: HTTPBasicCredentials = Depends(autenticar_usuario)):
     task = db.query(models.Task).filter(models.Task.task_id == task_id).first()
 
     if not task:

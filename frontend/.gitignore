@@ -27,3 +27,4 @@ dist-ssr
 .env
 .devcontainer
 .github
+.env.production

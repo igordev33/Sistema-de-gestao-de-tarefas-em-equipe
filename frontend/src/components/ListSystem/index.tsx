@@ -10,6 +10,8 @@ import PaginationComponent from "../PaginationComponent"
 
 function ListSystem() {
   const api_url = import.meta.env.VITE_API_URL
+  const api_user = import.meta.env.VITE_API_USER
+  const api_password = import.meta.env.VITE_API_PASSWORD
 
   const [taskList, setTaskList] = useState<Task[]>([])
   const [showCreateTaskForm, setShowCreateTaskForm] = useState<boolean>(false)
@@ -40,40 +42,42 @@ function ListSystem() {
 
   // Busca os dados da Api ao montar o componente
   useEffect(() => {
-    fetch(`${api_url}/tasks?page=${currentPage}`)
-      .then(response => response.json() as Promise<PaginatedResponse<Task>>) 
-      .then(data => { 
-        setTaskList(data.tasks)
-        setTotalPages(data.total_pages) 
+    axios.get<PaginatedResponse<Task>>(`${api_url}/tasks?page=${currentPage}`,{
+      auth: {
+        username: api_user,
+        password: api_password
+      }
+    })
+      .then(response => { 
+        setTaskList(response.data.tasks)
+        setTotalPages(response.data.total_pages) 
       })
       .catch(error => console.error("Erro ao buscar dados de tarefas", error))
   }, [currentPage])
 
   // Função responsável por completar uma tarefa
   const completeTask = (task_id: number) => {
-    fetch(`${api_url}/tasks/${task_id}`, {
-      method: "PATCH",
+    axios.patch(`${api_url}/tasks/${task_id}`, {task_status:"done"}, {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
-      body: JSON.stringify({
-        task_status: "done"
-      })
+      auth: {
+        username: api_user,
+        password: api_password
+      }
     })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error("Erro ao atualizar tarefa")
-        }
-
-        setTaskList(prev => prev.map(task =>
-          task.task_id === task_id ? { ...task, task_status: "done" } : task
-        ))
-      })
+    .then(response => setTaskList(prev => prev.map(task => task.task_id === task_id ? { ...task, task_status: "done"} : task)))
+    .catch(error => console.error("Erro ao atualizar tarefa", error))
   }
 
   //função responsável por criar uma tarefa
   const createTask = (dados: TaskCreate) => {
-    axios.post<CreateTaskData>(`${api_url}/tasks`, dados)
+    axios.post<CreateTaskData>(`${api_url}/tasks/`, dados, {
+      auth: {
+        username: api_user,
+        password: api_password
+      }
+    })
       .then(response => setTaskList(prev => [response.data.task, ...prev]))
       .catch(error => console.error("Erro ao cadastrar tarefa", error))
   }
@@ -103,6 +107,14 @@ function ListSystem() {
     })
   }, [taskList, filterValues])
 
+  const increasePage = () => {
+    setCurrentPage(currentPage + 1)
+  }
+
+  const decreasePage = () => {
+    setCurrentPage(currentPage - 1)
+  }
+
   return (
     <main className={styles.main}>
       <div className={styles.main__button_container}>
@@ -120,7 +132,7 @@ function ListSystem() {
         )
       })}
 
-      <PaginationComponent currentPage={currentPage} totalPages={totalPages} onChange={setCurrentPage}/>
+      <PaginationComponent currentPage={currentPage} totalPages={totalPages} onChange={setCurrentPage} increasePage={increasePage} decreasePage={decreasePage}/>
     </main>
   )
 }
